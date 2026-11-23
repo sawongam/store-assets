@@ -1,7 +1,8 @@
 # Changelog
 
-## Unreleased
+## 1.0.1 — 2026-11-23
 
+- **Fixed:** text files are now read and written as UTF-8, so alt text and non-ASCII config copy no longer crash on Windows.
 - **Fixed:** the feature graphic's body text could run under the devices and be cut off. Banner text now stops where the devices begin, and shrinks with a warning to fit.
 - **Fixed:** a slide rendered alone (`--slides`) could differ from the same slide in a full render, because the grain came from unseeded noise. It is now seeded, so renders are identical either way.
 - **Fixed:** `render.py --only ios-header|ios-search` rendered nothing unless the target was also in `config.targets`.

@@ -5,7 +5,7 @@ license: MIT
 compatibility: Python 3.9+ with Pillow 10.1+. Optional tools are rsvg-convert or cairosvg for SVG icons, adb for Android captures, and xcrun simctl for iOS captures (macOS). Works on Linux, macOS and Windows.
 metadata:
   author: sawongam
-  version: "1.0.0"
+  version: "1.0.1"
 ---
 
 # Store assets
