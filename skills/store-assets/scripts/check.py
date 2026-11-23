@@ -178,7 +178,7 @@ def main(argv=None) -> int:
         check_image(Path(args.file), args.file, spec)
     else:
         cfg_path = Path(args.config)
-        cfg = json.loads(cfg_path.read_text()) if cfg_path.exists() else None
+        cfg = json.loads(cfg_path.read_text(encoding="utf-8")) if cfg_path.exists() else None
         if args.out:
             out = Path(args.out)
         elif cfg is not None:
@@ -187,7 +187,7 @@ def main(argv=None) -> int:
         else:
             out = Path("store-assets/out")
         man = out / "manifest.json"
-        files = json.loads(man.read_text())["files"] if man.exists() else []
+        files = json.loads(man.read_text(encoding="utf-8"))["files"] if man.exists() else []
         if not files:
             wrn(f"no {man}; run render.py first")
         counts = defaultdict(int)
@@ -229,7 +229,7 @@ def main(argv=None) -> int:
                 err("App Store needs iPhone screenshots (ios-iphone-6.9 and/or ios-iphone-6.3)")
         icon_man = out / "icons" / "manifest.json"
         if icon_man.exists():
-            for m in json.loads(icon_man.read_text())["files"]:
+            for m in json.loads(icon_man.read_text(encoding="utf-8"))["files"]:
                 check_image(out / "icons" / m["path"], "icons/" + m["path"], specs["icons"][m["target"]])
         else:
             wrn("no icons checked (run icons.py, or check existing ones with --file X --target play-icon|ios-icon)")

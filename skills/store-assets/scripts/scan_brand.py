@@ -52,7 +52,7 @@ def read(p: Path, limit=400_000) -> str:
     try:
         if p.stat().st_size > limit:
             return ""
-        return p.read_text(errors="ignore")
+        return p.read_text(encoding="utf-8", errors="ignore")
     except OSError:
         return ""
 

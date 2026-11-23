@@ -16,7 +16,7 @@ SPECS_PATH = HERE / "specs.json"
 
 
 def load_specs() -> dict:
-    return json.loads(SPECS_PATH.read_text())
+    return json.loads(SPECS_PATH.read_text(encoding="utf-8"))
 
 
 def load_config(path: Path) -> tuple[dict, Path]:
@@ -24,7 +24,7 @@ def load_config(path: Path) -> tuple[dict, Path]:
     if not path.exists():
         raise SystemExit(f"config not found: {path}\nStart from assets/config.example.json in the skill.")
     try:
-        cfg = json.loads(path.read_text())
+        cfg = json.loads(path.read_text(encoding="utf-8"))
     except json.JSONDecodeError as e:
         raise SystemExit(f"{path}: invalid JSON: {e}")
     for key in ("brand", "captures", "slides"):

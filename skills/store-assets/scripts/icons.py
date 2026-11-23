@@ -120,7 +120,7 @@ def appiconset(dest: Path, light: Image.Image, dark: Image.Image | None, tinted:
                        "filename": "icon-1024-tinted.png", "idiom": "universal", "platform": "ios",
                        "size": "1024x1024"})
     (dest / "Contents.json").write_text(json.dumps({"images": images, "info": {"author": "xcode", "version": 1}},
-                                                   indent=2) + "\n")
+                                                   indent=2) + "\n", encoding="utf-8")
 
 
 def _ic_color(c) -> str:
@@ -159,7 +159,7 @@ def icon_composer(dest: Path, mark_layer: Image.Image, colors) -> None:
         }],
         "supported-platforms": {"squares": "shared"},
     }
-    (dest / "icon.json").write_text(json.dumps(doc, indent=2) + "\n")
+    (dest / "icon.json").write_text(json.dumps(doc, indent=2) + "\n", encoding="utf-8")
 
 
 def preview(out: Path, full: Image.Image, dark, tinted_src, fg, bg, mono, accent) -> Path:
@@ -326,7 +326,7 @@ def main(argv=None) -> int:
         anydpi = res / "mipmap-anydpi-v26"
         anydpi.mkdir(parents=True, exist_ok=True)
         for n in (args.name, f"{args.name}_round"):
-            (anydpi / f"{n}.xml").write_text(ADAPTIVE_XML.format(name=args.name))
+            (anydpi / f"{n}.xml").write_text(ADAPTIVE_XML.format(name=args.name), encoding="utf-8")
         if args.android_res:
             dest = Path(args.android_res)
             for p in res.rglob("*"):
@@ -341,7 +341,7 @@ def main(argv=None) -> int:
 
     p = preview(out, full, dark, tinted, fg, bg, mono, accent)
     (out / "manifest.json").write_text(json.dumps(
-        {"files": [{"target": t, "path": str(f.relative_to(out)), "kind": "icon"} for t, f in files]}, indent=2) + "\n")
+        {"files": [{"target": t, "path": str(f.relative_to(out)), "kind": "icon"} for t, f in files]}, indent=2) + "\n", encoding="utf-8")
     for t, f in files:
         print("wrote", f.relative_to(out), f"({specs['icons'][t]['size'][0]}px)")
     print("wrote appstore/AppIcon.appiconset/, android/res/, icon-composer/" if mark is not None

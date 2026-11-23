@@ -198,7 +198,7 @@ def main(argv=None) -> int:
     manifest: list = []
     prev = out / "manifest.json"
     if partial and prev.exists():
-        keep = json.loads(prev.read_text()).get("files", [])
+        keep = json.loads(prev.read_text(encoding="utf-8")).get("files", [])
         manifest = [m for m in keep if not (m["target"] in targets and m["locale"] in locales and
                                             (not args.slides or m.get("slide") in args.slides))]
     for locale in locales:
@@ -218,7 +218,7 @@ def main(argv=None) -> int:
             if sheet:
                 print("review sheet:", sheet)
     (out / "manifest.json").write_text(json.dumps({"config": str(Path(args.config).resolve()),
-                                                   "files": manifest}, indent=2) + "\n")
+                                                   "files": manifest}, indent=2) + "\n", encoding="utf-8")
     if args.fastlane:
         fastlane_export(out, project.path(args.fastlane), manifest, specs)
     for locale in locales:
@@ -258,7 +258,7 @@ def alt_text(project: Project, locale: str, manifest: list, out: Path) -> Path |
     if not seen:
         return None
     p = out / f"alt-text-{locale}.md"
-    p.write_text("\n".join(lines) + "\n")
+    p.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return p
 
 
