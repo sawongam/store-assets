@@ -2,7 +2,7 @@ name: ci
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   pull_request:
 
 permissions:
@@ -38,11 +38,11 @@ jobs:
       - name: manifests are valid JSON
         run: for f in .claude-plugin/*.json .codex-plugin/*.json .cursor-plugin/*.json gemini-extension.json skills/store-assets/scripts/specs.json skills/store-assets/assets/*.json; do python3 -m json.tool "$f" > /dev/null || exit 1; done
 
-  # Publishes a GitHub Release when main carries a version that has no release yet.
+  # Publishes a GitHub Release when the default branch carries a version that has no release yet.
   # The version comes from SKILL.md; tests/test_packaging.py keeps every manifest in sync with it.
   release:
     needs: [test, lint]
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
     runs-on: ubuntu-latest
     permissions:
       contents: write
