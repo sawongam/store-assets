@@ -1,0 +1,55 @@
+{
+  "brand": {
+    "name": "yourapp",
+    "icon": "../branding/icon_1024.png",
+    "theme": "dark",
+    "accent": "#FF8645",
+    "fonts": {
+      "display": "../assets/fonts/Display-ExtraBold.ttf",
+      "body": "../assets/fonts/Text-Regular.ttf",
+      "body_bold": "../assets/fonts/Text-Medium.ttf",
+      "label": "../assets/fonts/Text-Bold.ttf"
+    }
+  },
+  "locales": ["en-US"],
+  "captures": {
+    "phone": {
+      "platform": "android",
+      "dir": "raw/phone",
+      "status_bar_px": 98,
+      "nav_bar_px": 46,
+      "shots": {"home": "home.png", "detail": "detail.png", "add": "add.png", "stats": "stats.png", "settings": "settings.png"}
+    },
+    "tablet": {
+      "platform": "android",
+      "dir": "raw/tablet",
+      "status_bar_px": 52,
+      "nav_bar_px": 46,
+      "shots": {"home": "home.png", "detail": "detail.png", "add": "add.png", "stats": "stats.png"}
+    }
+  },
+  "targets": ["play-phone", "play-tablet-7", "play-tablet-10", "play-feature-graphic",
+              "ios-iphone-6.9", "ios-iphone-6.3", "ios-ipad-13"],
+  "slides": [
+    {"id": "01_hero", "layout": "hero", "captures": ["home", "stats"],
+     "headline": "Every tank,\n*counted.*", "body": "One short sentence that says what the app is."},
+    {"id": "02_track", "capture": "home", "eyebrow": "PROOF · IN · CAPS",
+     "headline": "Know what your\nride *really* does",
+     "callout": {"phone": [0, 960, 1080, 1645], "tablet": [0, 700, 1600, 1250]}},
+    {"id": "03_add", "capture": "add", "eyebrow": "THREE TAPS",
+     "headline": "Log it\nin *seconds*", "callout": {"phone": [30, 780, 1050, 1190]}},
+    {"id": "04_stats", "capture": "stats", "eyebrow": "SPEND · DISTANCE · TRENDS",
+     "headline": "See where the\n*money* goes"},
+    {"id": "05_closing", "layout": "closing", "headline": "No ads.\n*No sign-up.*",
+     "body": "Your data stays on your phone.",
+     "bullets": ["Works fully offline", "Optional cloud sync", "Dark mode included"]}
+  ],
+  "banner": {
+    "style": "devices",
+    "headline": "Every tank,\n*counted.*",
+    "body": "One short sentence that says what the app is.",
+    "captures": ["home", "stats"]
+  },
+  "output": "out",
+  "format": "jpeg"
+}
