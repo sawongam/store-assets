@@ -1,0 +1,27 @@
+{
+  "name": "store-assets",
+  "version": "1.0.0",
+  "description": "Upload-ready Google Play and App Store screenshots, feature graphics, iOS 27 header/search art and every store and launcher icon, built from your app's own codebase and real captures, then validated against both stores' specs.",
+  "author": { "name": "sawongam", "url": "https://github.com/sawongam" },
+  "homepage": "https://github.com/sawongam/store-assets",
+  "repository": "https://github.com/sawongam/store-assets",
+  "license": "MIT",
+  "keywords": ["app-store", "google-play", "screenshots", "aso", "app-icon", "feature-graphic", "flutter", "react-native", "android", "ios"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Store Assets",
+    "shortDescription": "Play and App Store graphics",
+    "longDescription": "Builds store screenshots, the Play feature graphic, iOS 27 header and search art, and every store and launcher icon from your app's own codebase and real captures. Reads brand colours and fonts from the repo, renders deterministically with Python and Pillow, and validates sizes, alpha, counts and copy against both stores before you upload.",
+    "developerName": "sawongam",
+    "category": "Design",
+    "websiteURL": "https://github.com/sawongam/store-assets",
+    "defaultPrompt": [
+      "Make Play Store and App Store screenshots for this app",
+      "Generate all the app icons from our logo",
+      "Our UI changed, re-render the store screenshots"
+    ],
+    "brandColor": "#FF7A2E",
+    "composerIcon": "./.claude-plugin/icon.png",
+    "logo": "./.claude-plugin/icon.png"
+  }
+}
