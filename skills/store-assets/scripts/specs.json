@@ -1,0 +1,89 @@
+{
+  "_about": "Store asset specs the renderer and checker read. Re-check the live pages listed under sources before a release; when they disagree with this file, the store wins. Update last_verified when you do.",
+  "last_verified": "2026-11-23",
+  "sources": {
+    "play_assets": "https://support.google.com/googleplay/android-developer/answer/9866151",
+    "play_icon": "https://developer.android.com/google-play/resources/icon-design-specifications",
+    "android_adaptive_icon": "https://developer.android.com/develop/ui/views/launch/icon_design_adaptive",
+    "appstore_screenshots": "https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications",
+    "appstore_previews": "https://developer.apple.com/help/app-store-connect/reference/app-information/app-preview-specifications",
+    "apple_icons": "https://developer.apple.com/design/human-interface-guidelines/app-icons"
+  },
+  "targets": {
+    "play-phone": {
+      "store": "play", "kind": "screenshots", "folder": "phone", "label": "Play · phone",
+      "size": [1080, 1920], "device": "android-phone", "captures": ["phone"],
+      "count": [2, 8], "promo_min_count": 4, "promo_min_short_side": 1080,
+      "side_range": [320, 3840], "max_ratio": 2.3, "max_bytes": 8000000,
+      "formats": ["jpeg", "png"], "alpha": false,
+      "fastlane": "phoneScreenshots"
+    },
+    "play-tablet-7": {
+      "store": "play", "kind": "screenshots", "folder": "tablet-7", "label": "Play · 7-inch tablet",
+      "size": [1440, 2560], "device": "android-tablet", "captures": ["tablet"],
+      "count": [4, 8], "side_range": [1080, 7680], "max_ratio": 2.3, "max_bytes": 8000000,
+      "formats": ["jpeg", "png"], "alpha": false,
+      "fastlane": "sevenInchScreenshots"
+    },
+    "play-tablet-10": {
+      "store": "play", "kind": "screenshots", "folder": "tablet-10", "label": "Play · 10-inch tablet",
+      "size": [1800, 3200], "device": "android-tablet", "captures": ["tablet"],
+      "count": [4, 8], "side_range": [1080, 7680], "max_ratio": 2.3, "max_bytes": 8000000,
+      "formats": ["jpeg", "png"], "alpha": false,
+      "fastlane": "tenInchScreenshots"
+    },
+    "play-feature-graphic": {
+      "store": "play", "kind": "banner", "folder": ".", "file": "feature-graphic", "label": "Play · feature graphic",
+      "size": [1024, 500], "supersample": 2, "safe": [0.08, 0.1, 0.92, 0.9],
+      "formats": ["jpeg", "png"], "alpha": false, "max_bytes": 15000000,
+      "fastlane": "featureGraphic"
+    },
+    "ios-iphone-6.9": {
+      "store": "appstore", "kind": "screenshots", "folder": "iphone-6.9", "label": "App Store · iPhone 6.9\"",
+      "size": [1320, 2868], "accepted": [[1320, 2868], [1290, 2796], [1260, 2736]],
+      "device": "iphone", "captures": ["iphone", "phone"],
+      "count": [1, 10], "formats": ["jpeg", "png"], "alpha": false
+    },
+    "ios-iphone-6.3": {
+      "store": "appstore", "kind": "screenshots", "folder": "iphone-6.3", "label": "App Store · iPhone 6.3\"",
+      "size": [1206, 2622], "accepted": [[1206, 2622], [1179, 2556]],
+      "device": "iphone", "captures": ["iphone", "phone"],
+      "count": [1, 10], "formats": ["jpeg", "png"], "alpha": false
+    },
+    "ios-ipad-13": {
+      "store": "appstore", "kind": "screenshots", "folder": "ipad-13", "label": "App Store · iPad 13\"",
+      "size": [2064, 2752], "accepted": [[2064, 2752], [2048, 2732]],
+      "device": "ipad", "captures": ["ipad", "tablet"],
+      "count": [1, 10], "formats": ["jpeg", "png"], "alpha": false
+    },
+    "ios-header": {
+      "store": "appstore", "kind": "banner", "folder": ".", "file": "product-page-header", "label": "App Store · product page header (iOS 27+)",
+      "size": [3840, 1646], "supersample": 1, "safe": [0.2, 0.12, 0.8, 0.88], "safe_verified": false,
+      "formats": ["jpeg", "png"], "alpha": false, "experimental": true
+    },
+    "ios-search": {
+      "store": "appstore", "kind": "banner", "folder": ".", "file": "search-result", "label": "App Store · search results asset (iOS 27+)",
+      "size": [3840, 2560], "accepted_range": [[1920, 1280], [3840, 2560]], "supersample": 1,
+      "safe": [0.22, 0.3, 0.78, 0.7], "safe_verified": false,
+      "formats": ["jpeg", "png"], "alpha": false, "experimental": true
+    }
+  },
+  "icons": {
+    "play-icon": {"size": [512, 512], "formats": ["png"], "alpha": "allowed", "max_bytes": 1024000,
+                  "note": "Full square. Play applies the mask (radius 30%) and the shadow."},
+    "ios-icon": {"size": [1024, 1024], "formats": ["png"], "alpha": false,
+                 "note": "Full square, no transparency, no rounded corners. The system masks it."},
+    "android-adaptive": {"canvas_dp": 108, "safe_dp": 66, "logo_min_dp": 48,
+                         "densities": {"mdpi": 1, "hdpi": 1.5, "xhdpi": 2, "xxhdpi": 3, "xxxhdpi": 4}}
+  },
+  "copy_lint": {
+    "_note": "Whole-word, case-insensitive. Play bans ranking, price, promo and call-to-action words in screenshots and the feature graphic; Apple rejects other platforms' names and unprovable claims. Errors fail check.py; warnings are for a human to judge.",
+    "error": ["#1", "number one", "best", "top rated", "top-rated", "editor's choice", "app of the day",
+              "download now", "install now", "get it now", "try now", "play now", "sale", "discount",
+              "% off", "million downloads", "award-winning", "award winning"],
+    "error_play": ["app store", "iphone", "ipad", "ios", "apple"],
+    "error_appstore": ["google play", "play store", "android"],
+    "warn": ["free", "new", "only", "fastest", "#", "price", "$", "€", "£", "₹", "limited time", "today only",
+             "guaranteed", "100%"]
+  }
+}
