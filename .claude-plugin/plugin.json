@@ -1,0 +1,10 @@
+{
+  "name": "store-assets",
+  "description": "Upload-ready Google Play and App Store screenshots, feature graphics, iOS 27 header/search art and every store and launcher icon, built from your app's own codebase and real captures, then validated against both stores' specs.",
+  "version": "1.0.0",
+  "author": { "name": "sawongam", "url": "https://github.com/sawongam" },
+  "homepage": "https://github.com/sawongam/store-assets",
+  "repository": "https://github.com/sawongam/store-assets",
+  "license": "MIT",
+  "keywords": ["app-store", "google-play", "screenshots", "aso", "app-icon", "feature-graphic", "flutter", "react-native", "android", "ios"]
+}

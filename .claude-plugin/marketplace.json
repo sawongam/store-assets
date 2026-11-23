@@ -1,0 +1,14 @@
+{
+  "name": "store-assets",
+  "owner": { "name": "sawongam", "url": "https://github.com/sawongam" },
+  "description": "Store listing graphics for Google Play and the App Store, from your codebase.",
+  "plugins": [
+    {
+      "name": "store-assets",
+      "source": "./",
+      "description": "Screenshots, feature graphic, iOS header/search art and all icons for both stores, validated before upload.",
+      "category": "design",
+      "tags": ["app-store", "google-play", "screenshots", "icons", "aso"]
+    }
+  ]
+}
