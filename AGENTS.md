@@ -30,6 +30,6 @@ CI runs the same on Linux, macOS and Windows, plus Python 3.9 with Pillow 10.1.0
 
 - **Rendering stays deterministic.** No unseeded randomness, no wall-clock values in images. `test_partial_render_is_identical` guards this.
 - **Never draw or generate app UI.** The renderer frames real captures only.
-- **A release bumps every version together:** `SKILL.md` (`metadata.version`), the three `plugin.json` files, `gemini-extension.json` and a new `CHANGELOG.md` heading. `tests/test_packaging.py` fails when they disagree.
+- **A release bumps every version together:** `SKILL.md` (`metadata.version`), the three `plugin.json` files, `gemini-extension.json` and a new `CHANGELOG.md` heading. `tests/test_packaging.py` fails when they disagree. Merging that to `main` publishes the GitHub Release by itself (the `release` job in `ci.yml`), using the matching `CHANGELOG.md` section as the notes. If the version already has a release, the job does nothing, so a change without a bump never re-releases.
 - **Spec changes cite a source.** Update `specs.json` → `last_verified` and the matching `references/*.md` together, with the store page URL in the PR.
 - **Keep SKILL.md harness-neutral.** Refer to "your file viewer" or "the shell", not one harness's tool names, and keep paths relative to the skill folder.

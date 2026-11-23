@@ -37,3 +37,27 @@ jobs:
         run: shellcheck skills/store-assets/scripts/capture.sh
       - name: manifests are valid JSON
         run: for f in .claude-plugin/*.json .codex-plugin/*.json .cursor-plugin/*.json gemini-extension.json skills/store-assets/scripts/specs.json skills/store-assets/assets/*.json; do python3 -m json.tool "$f" > /dev/null || exit 1; done
+
+  # Publishes a GitHub Release when main carries a version that has no release yet.
+  # The version comes from SKILL.md; tests/test_packaging.py keeps every manifest in sync with it.
+  release:
+    needs: [test, lint]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: create release if this version is new
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version=$(sed -n 's/^  version: "\(.*\)"/\1/p' skills/store-assets/SKILL.md | head -n1)
+          [ -n "$version" ] || { echo "no version found in SKILL.md"; exit 1; }
+          if gh release view "v$version" >/dev/null 2>&1; then
+            echo "v$version is already released, nothing to do"
+            exit 0
+          fi
+          awk -v v="$version" '/^## /{p = index($0, "## " v) == 1; next} p' CHANGELOG.md > notes.md
+          [ -s notes.md ] || { echo "CHANGELOG.md has no section for $version"; exit 1; }
+          gh release create "v$version" --target "$GITHUB_SHA" --title "v$version" --notes-file notes.md
