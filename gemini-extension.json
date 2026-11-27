@@ -1,5 +1,5 @@
 {
   "name": "store-assets",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Upload-ready Google Play and App Store screenshots, feature graphics, iOS 27 header/search art and every store and launcher icon, built from your app's own codebase and validated against both stores' specs."
 }
