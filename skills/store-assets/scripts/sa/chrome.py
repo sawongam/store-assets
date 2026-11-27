@@ -42,6 +42,31 @@ def _fill_from_row(img: Image.Image, row: int, y0: int, y1: int) -> None:
     img.paste(img.crop((0, row, img.width, row + 1)).resize((img.width, y1 - y0)), (0, y0))
 
 
+def _centre_ink(img: Image.Image, y: int) -> bool:
+    """True when row y has dark ink in its middle third: the tail of a punch-hole, notch or Dynamic Island."""
+    g = img.convert("L").crop((img.width // 3, y, img.width * 2 // 3, y + 1))
+    vals = core.pixels(g)
+    base = sorted(vals)[len(vals) // 2]
+    return sum(1 for v in vals if base - v > 40) > 2
+
+
+def _clean_status_row(img: Image.Image, status_px: int, source: str = "") -> int:
+    """The row to stretch over the status band: status_px, or the first row below it clear of a camera cut-out.
+
+    Stretching a row that still holds the bottom of a punch-hole smears it into a
+    vertical stem across the band, so a band set a few pixels short is extended
+    instead, by at most 1.2% of the capture height so app content is never swallowed.
+    """
+    limit = min(img.height - 1, status_px + max(8, round(img.height * 0.012)))
+    y = status_px
+    while y < limit and _centre_ink(img, y):
+        y += 1
+    if y != status_px:
+        core.warn_group("status_bar_px stops inside the camera cut-out ({items}); band extended to {px}px. "
+                        "Set status_bar_px to {px} or more.".replace("{px}", str(y)), source)
+    return y
+
+
 def _band_fg(img: Image.Image, y0: int, y1: int, dark=(30, 30, 34), light=(255, 255, 255)):
     band = img.crop((0, max(0, y0), img.width, max(y0 + 1, y1))).resize((32, 4))
     px = core.pixels(band)
@@ -158,6 +183,7 @@ def make_screen(raw: Image.Image, *, src_platform: str, kind: str, target_platfo
             return Screen(img, target_platform, kind, source=source)
         img = img.copy()
         if src_platform == "android":
+            status_px = _clean_status_row(img, status_px, source)
             _fill_from_row(img, status_px, 0, status_px)
             if nav_px:
                 _fill_from_row(img, h - nav_px - 1, h - nav_px, h)
@@ -226,8 +252,9 @@ def _rechrome_to_ios(img, kind, aspect, status_px, nav_px, fonts, source) -> Scr
 def suggest_bars(img: Image.Image) -> tuple[int, int]:
     """Guess (status_px, nav_px) from where the top/bottom glyph rows end.
 
-    Looks for ink in the status-bar side zones (time at left, icons at right)
-    and a pill/buttons in the bottom centre. A hint for inspect_capture.py.
+    Looks for ink in the status-bar side zones (time at left, icons at right),
+    for a camera cut-out in the top centre (it often reaches lower than the
+    glyphs), and for a pill/buttons in the bottom centre. A hint for inspect_capture.py.
     """
     g = img.convert("L")
     w, h = g.size
@@ -253,7 +280,8 @@ def suggest_bars(img: Image.Image) -> tuple[int, int]:
     limit = int(h * 0.09)
     gap = 0
     for y in range(0, limit):
-        if glyph(y, 0, w * 0.3, from_left=True) or glyph(y, w * 0.6, w, from_left=False):
+        if glyph(y, 0, w * 0.3, from_left=True) or glyph(y, w * 0.6, w, from_left=False) \
+                or (last and ink(y, w * 0.35, w * 0.65)):
             last, gap = y, 0
         else:
             gap += 1

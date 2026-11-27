@@ -8,10 +8,11 @@ Screenshots are ads, not documentation. People scroll a search result in about a
 |---|---|---|
 | 1 | **hero** | Name plus the one promise. The app at its best, with 2 devices if there's a second strong screen. |
 | 2–3 | **top benefits** | The two reasons people install. Show the screen where the benefit is visible. |
-| 4–6 | **supporting benefits** | Breadth: other key flows, customisation, platforms. |
-| last | **closing** | Trust and objections: privacy, offline, no ads, no sign-up, sync. Bullets, not paragraphs. |
+| 4–8 | **supporting benefits** | Breadth: other key flows, customisation, platforms. |
 
-Use 5–8 slides. Play shows up to 8, and Apple up to 10, but past 8 nobody scrolls.
+Every slide shows a real screen; there is no text-only closing slide. Put trust and objections (privacy, offline, no ads, no sign-up) in the hero body or a feature eyebrow.
+
+Use 4–8 slides. Play shows up to 8, and Apple up to 10, but past 8 nobody scrolls.
 
 ## Headline rules
 
@@ -34,10 +35,9 @@ Use 5–8 slides. Play shows up to 8, and Apple up to 10, but past 8 nobody scro
 | Objection killer | "No ads. / *No sign-up.*" |
 | Before → after | "From receipts / to *real mileage*" |
 
-## Hero and closing
+## Hero
 
 - **Hero headline:** the category promise in 3–5 words. Hero body: one sentence, 6–10 words, that says what the app is ("Mileage, fuel and spend for every ride.").
-- **Closing:** a 2-part headline plus 3–4 bullets, each under 30 characters, all true in the code. Good bullets cover offline support, the privacy posture, sync, units and customisation, and what's free.
 
 ## Banned and risky copy
 

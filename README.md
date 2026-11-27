@@ -7,7 +7,7 @@
 Tell your agent *"make the store screenshots for this app"*. The skill then:
 
 1. **Reads your brand from the repo:** the accent colour from your theme or tokens, your bundled fonts, the app name and the icon. You get your typography, not a template font.
-2. **Plans the story with you:** hero, 3–6 benefit slides, and a closing slide. Every headline is tied to a screen that actually exists. It checks with you once, on the copy.
+2. **Plans the story with you:** a hero and 3–7 benefit slides, each showing a real screen. Every headline is tied to a screen that actually exists. It checks with you once, on the copy.
 3. **Cleans real captures:** a 9:41 status bar and no notifications. It also turns Android captures into iOS screens (status bar, home indicator, Dynamic Island), so Flutter, React Native and other cross-platform apps get App Store shots **without a Mac**.
 4. **Renders deterministically** with Pillow: device frames drawn in code, a soft screen glow, and zoomed callouts of the part that matters. Re-run it after a UI change and you get the same design with the new pixels.
 5. **Makes every icon:** Play 512, App Store 1024, Xcode appiconset with **dark and tinted** variants, a starter **Icon Composer** bundle for Liquid Glass, and Android **adaptive and themed** (monochrome) icons auto-fitted to the 66dp safe zone. It also writes a preview of every mask.

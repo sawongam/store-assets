@@ -63,8 +63,6 @@ def make_project(root: Path, targets: list[str], **overrides) -> Path:
              "callout": {"phone": [0, 400, 1080, 900], "tablet": [0, 400, 1600, 900]},
              "alt": "Home screen with recent fill-ups"},
             {"id": "03_add", "capture": "add", "headline": "Log it\nin *seconds*", "alt": "Add fill-up form"},
-            {"id": "04_closing", "layout": "closing", "headline": "No ads.\n*No sign-up.*",
-             "bullets": ["Works offline", "Dark mode"], "alt": "App icon with a list of what is included"},
         ],
         "banner": {"style": "devices", "headline": "Every tank,\n*counted.*",
                    "body": "Mileage and spend for every ride.", "captures": ["home", "stats"],

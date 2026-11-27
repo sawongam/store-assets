@@ -68,8 +68,11 @@ def render_target(project: Project, target_id: str, spec: dict, locale: str, out
                 continue
             lname = slide.get("layout", "feature")
             layout = layouts.LAYOUTS.get(lname)
+            if lname == "closing":
+                raise SystemExit(f"slide {sid}: the closing layout was removed in 1.1.0; delete this slide "
+                                 f"(every screenshot now shows the app)")
             if layout is None:
-                raise SystemExit(f"slide {sid}: unknown layout {lname!r} (hero, feature, closing)")
+                raise SystemExit(f"slide {sid}: unknown layout {lname!r} (hero, feature)")
             if lname == "feature" and not slide.get("capture"):
                 raise SystemExit(f"slide {sid}: a feature slide needs \"capture\"")
             if lname == "hero" and not (slide.get("captures") or slide.get("capture")):

@@ -9,7 +9,6 @@ Relative paths resolve from the config's folder. Keep the config, captures and c
     "icon": "../branding/icon_1024.png",      // finished app icon, png/svg, 512+ px
     "theme": "dark",                          // dark | light | brand
     "accent": "#FF8645",                      // brand colour: accent words, eyebrows
-    "check": "#FF6A2B",                       // closing-slide check circles (default: accent)
     "highlight": "#FFE496",                   // brand theme only: accent-word colour on the brand canvas
     "background": ["#1B1C20", "#08080A"],     // optional: override the theme's top → bottom gradient
     "text": "#FFFFFF", "muted": "#A1A1AA", "glow": "#F4F4F8",   // optional overrides
@@ -77,12 +76,7 @@ Each slide renders once per screenshot target, in order. Filenames are `NN_<id>.
  "frame": "none",               // per-slide frame override: none | graphite | silver | black | titanium | "#hex"
  "alt": "Home screen showing last tank mileage, distance and fill-up count",   // Play alt text, <=140 chars
  "headline_size": 88,           // px at 1080 wide
- "only": ["play"]},             // limit to stores / target ids / devices
-
-{"id": "07_closing", "layout": "closing", "headline": "No ads.\n*No sign-up.*",
- "body": "Your logbook lives on your phone.",
- "bullets": ["Works fully offline", "Optional cloud sync", "Every ride in one garage"],
- "icon": true}                   // false hides the big icon
+ "only": ["play"]}              // limit to stores / target ids / devices
 ```
 
 Notes:
