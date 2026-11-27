@@ -2,7 +2,11 @@
 
 **An agent skill that builds your Google Play and App Store graphics from your app's own codebase.** It covers screenshots, the feature graphic, the iOS 27 header and search art, and every icon, and it validates everything against both stores' specs before you upload.
 
-![Screenshots, feature graphic, iPad and App Store header rendered by store-assets](docs/showcase.jpg)
+![khulla store screenshots rendered by store-assets](docs/khulla.jpg)
+
+![daysly store screenshots rendered by store-assets](docs/daysly.jpg)
+
+![pumpwise store screenshots rendered by store-assets](docs/pumpwise.jpg)
 
 Tell your agent *"make the store screenshots for this app"*. The skill then:
 
@@ -13,7 +17,7 @@ Tell your agent *"make the store screenshots for this app"*. The skill then:
 5. **Makes every icon:** Play 512, App Store 1024, Xcode appiconset with **dark and tinted** variants, a starter **Icon Composer** bundle for Liquid Glass, and Android **adaptive and themed** (monochrome) icons auto-fitted to the 66dp safe zone. It also writes a preview of every mask.
 6. **Validates before you upload:** pixel sizes, no alpha, counts per store and locale, file sizes, colour profile, and the copy (no "best", "#1" or "free", no other platform's name).
 
-![Icon preview under each platform mask](docs/icons.png)
+![Icon previews for three apps under each platform mask and at small sizes](docs/icons.png)
 
 ## Why another screenshot skill?
 
