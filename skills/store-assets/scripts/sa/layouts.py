@@ -1,4 +1,4 @@
-"""Slide layouts: hero, feature, closing, and the landscape banner.
+"""Slide layouts: hero, feature, and the landscape banner.
 
 All sizes are written for a 1080-wide portrait canvas and scaled by
 u = W / 1080, so one design serves Play phones, iPhones, tablets and iPads.
@@ -51,7 +51,6 @@ def resolve_theme(brand: dict) -> dict:
         t["accent"] = core.hex_rgb(brand["highlight"]) if brand.get("highlight") else default_hi
     else:
         t["accent"] = core.ensure_contrast(accent, mid, 3.0)
-    t["check"] = core.hex_rgb(brand.get("check", core.to_hex(accent)))
     t["frame"] = brand.get("frame", t["frame"])
     return t
 
@@ -301,55 +300,7 @@ def hero(ctx, s: dict) -> Image.Image:
     return c.convert("RGB")
 
 
-def closing(ctx, s: dict) -> Image.Image:
-    u, W, H, t = ctx.u, ctx.W, ctx.H, ctx.theme
-    title, body = ctx.text(s.get("headline")), ctx.text(s.get("body"))
-    bullets = [ctx.text(b) for b in (s.get("bullets") or [])][:5]
-    hs = s.get("headline_size", 92) * u
-    isz = round(240 * u) if ctx.has_icon and s.get("icon", True) else 0
-    cw, ch, gap = round(860 * u), round(124 * u), round(24 * u)
-    total = (isz + 90 * u if isz else 0) + _lines(title) * hs * 1.05 + (36 * u + _lines(body) * 38 * u * 1.3 if body else 0) \
-        + (90 * u + len(bullets) * (ch + gap) - gap if bullets else 0)
-    top = max(120 * u, (H - total) / 2 - 20 * u)
-
-    c = background(ctx)
-    glow(ctx, c, W / 2, top + isz / 2 + 160 * u, 420 * u, 420 * u)
-    d = ImageDraw.Draw(c)
-    y = top
-    if isz:
-        paste_icon(ctx, c, isz, (W - isz) / 2, y, shadow=True)
-        y += isz + 90 * u
-    if title:
-        y, _ = core.text_block(d, title, fonts=ctx.fonts, role="display", size=hs, x=W / 2, y=y, max_w=W * 0.9,
-                               color=t["text"], accent=t["accent"], lead=1.05, track=-0.025, label="closing headline")
-    if body:
-        y, _ = core.text_block(d, body, fonts=ctx.fonts, role="body", size=38 * u, x=W / 2, y=y + 36 * u,
-                               max_w=W * 0.86, color=t["muted"], lead=1.3, label="closing body")
-    y += 90 * u - (hs * 0.05)
-    f = ctx.fonts.get("body_bold", 40 * u)
-    for label in bullets:
-        x, yy = (W - cw) // 2, round(y)
-        edge = t["card_edge"]
-        c.paste(edge[:3] + (255,), (x, yy), core.rr_mask((cw, ch), round(34 * u)).point(lambda v: v * edge[3] // 255))
-        c.paste(t["card"] + (255,), (x + 2, yy + 2), core.rr_mask((cw - 4, ch - 4), round(32 * u)))
-        d = ImageDraw.Draw(c)
-        bx, by, r = x + 42 * u, yy + ch / 2, 28 * u
-        d.ellipse((bx, by - r, bx + 2 * r, by + r), fill=t["check"])
-        tick = (255, 255, 255) if core.contrast((255, 255, 255), t["check"]) >= 2.2 else (17, 17, 20)
-        d.line([(bx + 16 * u, by + 1), (bx + 25 * u, by + 10 * u), (bx + 41 * u, by - 9 * u)], fill=tick,
-               width=max(2, round(6 * u)), joint="curve")
-        tx = bx + 2 * r + 30 * u
-        maxw = x + cw - tx - 30 * u
-        ff = f
-        if ff.getlength(label) > maxw:
-            ff = ctx.fonts.get("body_bold", 40 * u * maxw / ff.getlength(label))
-            core.warn(f"bullet {label!r} shrunk to fit its row")
-        d.text((tx, by), label, font=ff, fill=t["text"] if t["dark"] else (17, 17, 20), anchor="lm")
-        y += ch + gap
-    return c.convert("RGB")
-
-
-LAYOUTS = {"hero": hero, "feature": feature, "closing": closing}
+LAYOUTS = {"hero": hero, "feature": feature}
 
 
 # ---------------------------------------------------------------- banner (feature graphic, Apple header/search)

@@ -38,7 +38,7 @@ class RenderPipeline(unittest.TestCase):
     def test_outputs_match_specs(self):
         specs = json.loads((Path(__file__).parent.parent / "skills/store-assets/scripts/specs.json").read_text())
         manifest = json.loads((self.out / "manifest.json").read_text())["files"]
-        self.assertEqual(len(manifest), 4 + 1 + 4 + 4)
+        self.assertEqual(len(manifest), 3 + 1 + 3 + 3)
         for m in manifest:
             with Image.open(self.out / m["path"]) as im:
                 self.assertEqual(list(im.size), specs["targets"][m["target"]]["size"], m["path"])
@@ -53,7 +53,7 @@ class RenderPipeline(unittest.TestCase):
         self.assertTrue((self.out / "_review" / "sheet-en-US.jpg").exists())
         lines = [ln for ln in (self.out / "alt-text-en-US.md").read_text(encoding="utf-8").splitlines()
                  if ln.startswith("- ")]
-        self.assertEqual(len(lines), 5)  # 4 phone screenshots + the feature graphic
+        self.assertEqual(len(lines), 4)  # 3 phone screenshots + the feature graphic
         self.assertEqual(lines, sorted(lines))
         self.assertFalse([ln for ln in lines if "TODO" in ln])
 
@@ -65,7 +65,7 @@ class RenderPipeline(unittest.TestCase):
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertEqual(md5(p), before)
         # the partial run keeps the rest of the manifest
-        self.assertEqual(len(json.loads((self.out / "manifest.json").read_text())["files"]), 13)
+        self.assertEqual(len(json.loads((self.out / "manifest.json").read_text())["files"]), 10)
 
     def test_banner_text_stays_clear_of_devices(self):
         """The banner body used to run under the phones and get cut off. Every text box must now sit
@@ -156,6 +156,20 @@ class Icons(unittest.TestCase):
                 self.assertTrue((out / f).exists(), f)
             c = run("check.py", "--file", str(out / "appstore" / "icon-1024.png"), "--target", "ios-icon", cwd=tmp)
             self.assertEqual(c.returncode, 0, c.stdout)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+
+class RemovedLayout(unittest.TestCase):
+    def test_closing_slide_is_refused_with_a_reason(self):
+        tmp = Path(tempfile.mkdtemp(prefix="sa-closing-"))
+        try:
+            make_project(tmp, ["play-phone"], slides=[
+                {"id": "01_track", "capture": "home", "headline": "Know what your\nride *does*", "alt": "Home"},
+                {"id": "02_closing", "layout": "closing", "headline": "No ads.", "bullets": ["Offline"]}])
+            r = run("render.py", cwd=tmp)
+            self.assertNotEqual(r.returncode, 0)
+            self.assertIn("closing layout was removed", r.stdout + r.stderr)
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
 

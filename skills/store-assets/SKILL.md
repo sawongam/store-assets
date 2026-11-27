@@ -5,7 +5,7 @@ license: MIT
 compatibility: Python 3.9+ with Pillow 10.1+. Optional tools are rsvg-convert or cairosvg for SVG icons, adb for Android captures, and xcrun simctl for iOS captures (macOS). Works on Linux, macOS and Windows.
 metadata:
   author: sawongam
-  version: "1.0.1"
+  version: "1.1.0"
 ---
 
 # Store assets
@@ -50,11 +50,12 @@ Say what you picked and why in 3–4 lines. Don't stop for approval unless somet
 
 Read `references/copy.md` first. Then read the app's actual features from its routes, screens and strings, so that every claim maps to a screen that exists.
 
-Draft 5–8 slides:
+Draft 4–8 slides, every one showing the app:
 
 1. **hero**: app name, a promise headline, and 2 devices.
-2. **features** (3–6): one benefit per slide, each with a capture and usually a callout.
-3. **closing**: icon, a trust headline, and 3–4 bullets.
+2. **features** (3–7): one benefit per slide, each with a capture and usually a callout.
+
+There is no text-only slide. Trust points (offline, privacy, open source) go in the hero body or a feature's eyebrow.
 
 Show the plan as a table: slide, layout, capture, eyebrow, headline. This is the one checkpoint worth asking the user about. Copy is the part they care most about, and it's cheap to change now. If you can't ask (a headless or CI run), go ahead with your best plan and list every copy decision under "what is unverified" at hand-off.
 

@@ -39,10 +39,7 @@
     {"id": "03_add", "capture": "add", "eyebrow": "THREE TAPS",
      "headline": "Log it\nin *seconds*", "callout": {"phone": [30, 780, 1050, 1190]}},
     {"id": "04_stats", "capture": "stats", "eyebrow": "SPEND · DISTANCE · TRENDS",
-     "headline": "See where the\n*money* goes"},
-    {"id": "05_closing", "layout": "closing", "headline": "No ads.\n*No sign-up.*",
-     "body": "Your data stays on your phone.",
-     "bullets": ["Works fully offline", "Optional cloud sync", "Dark mode included"]}
+     "headline": "See where the\n*money* goes"}
   ],
   "banner": {
     "style": "devices",

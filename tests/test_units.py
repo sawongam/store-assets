@@ -7,15 +7,49 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from PIL import Image
+from PIL import Image, ImageDraw
 
 from _fixtures import SCRIPTS
 
 sys.path.insert(0, str(SCRIPTS))
 
 import check  # noqa: E402
-from sa import core  # noqa: E402
+from sa import chrome, core  # noqa: E402
 from sa.project import load_specs  # noqa: E402
+
+
+def punch_hole_capture() -> Image.Image:
+    """A white status band whose centred camera cut-out (rows 30-101) reaches below the clock (rows 45-85)."""
+    im = Image.new("RGB", (1080, 2400), (255, 255, 255))
+    d = ImageDraw.Draw(im)
+    d.rectangle((75, 45, 190, 85), fill=(60, 60, 60))  # clock
+    d.rectangle((890, 45, 1005, 85), fill=(60, 60, 60))  # icons
+    d.ellipse((504, 30, 576, 101), fill=(0, 0, 0))  # punch-hole
+    d.rectangle((64, 160, 400, 240), fill=(20, 20, 20))  # page title
+    return im
+
+
+class Bars(unittest.TestCase):
+    def setUp(self):
+        core.WARNINGS.clear()
+        core.GROUPS.clear()
+
+    def test_guess_covers_camera_cutout(self):
+        status, _ = chrome.suggest_bars(punch_hole_capture())
+        self.assertGreater(status, 101)
+        self.assertLess(status, 160)
+
+    def test_short_band_does_not_smear_cutout(self):
+        scr = chrome.make_screen(punch_hole_capture(), src_platform="android", kind="phone", target_platform="android",
+                                 target_aspect=None, status_px=97, nav_px=0, mode="repaint", fonts=None, density=None)
+        column = [scr.img.getpixel((540, y)) for y in range(0, 110)]
+        self.assertTrue(all(min(px) > 200 for px in column), "cut-out stretched into a line")
+        self.assertTrue(any("camera cut-out" in t for t in core.GROUPS))
+
+    def test_clean_band_is_left_alone(self):
+        chrome.make_screen(punch_hole_capture(), src_platform="android", kind="phone", target_platform="android",
+                           target_aspect=None, status_px=115, nav_px=0, mode="repaint", fonts=None, density=None)
+        self.assertFalse(core.GROUPS)
 
 
 class Core(unittest.TestCase):
