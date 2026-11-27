@@ -2,9 +2,11 @@
 
 **An agent skill that builds your Google Play and App Store graphics from your app's own codebase.** It covers screenshots, the feature graphic, the iOS 27 header and search art, and every icon, and it validates everything against both stores' specs before you upload.
 
-![Screenshots, feature graphic, iPad and App Store header rendered by store-assets](docs/showcase.jpg)
+![khulla store screenshots rendered by store-assets](docs/khulla.jpg)
 
-![Play Store screenshots rendered by store-assets for three apps: a library manager, a mileage tracker and a day counter](docs/gallery.jpg)
+![daysly store screenshots rendered by store-assets](docs/daysly.jpg)
+
+![pumpwise store screenshots rendered by store-assets](docs/pumpwise.jpg)
 
 Tell your agent *"make the store screenshots for this app"*. The skill then:
 
